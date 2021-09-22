@@ -1,6 +1,6 @@
 import { MathUtils, Mesh, Vector3 } from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { MeshDistortMaterial } from '@react-three/drei';
+import { MeshDistortMaterial, OrbitControls } from '@react-three/drei';
 import { Bloom, ChromaticAberration, EffectComposer, Noise } from '@react-three/postprocessing';
 import { Suspense, useRef } from 'react';
 import { useMousePosition } from './useMousePosition';
@@ -107,6 +107,7 @@ const Scene = () => {
         </Rig>
         <Effects />
       </Suspense>
+      <OrbitControls />
     </Canvas >
   );
 };
