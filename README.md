@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Delicious Computer
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e33604b5-a57c-49db-b8c0-e4c15656a691/deploy-status)](https://app.netlify.com/sites/delicious-computer/deploys)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
