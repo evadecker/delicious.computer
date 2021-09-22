@@ -1,8 +1,8 @@
-import * as THREE from 'three';
+import { MathUtils, Mesh, Vector3 } from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { MeshDistortMaterial } from '@react-three/drei';
-import { EffectComposer, Bloom, Noise, ChromaticAberration } from '@react-three/postprocessing';
-import { useRef, Suspense } from 'react';
+import { Bloom, ChromaticAberration, EffectComposer, Noise } from '@react-three/postprocessing';
+import { Suspense, useRef } from 'react';
 import { useMousePosition } from './useMousePosition';
 import { ReactComponent as Wordmark } from './wordmark.svg';
 import './App.css';
@@ -16,8 +16,8 @@ const Scene = () => {
     </>
   );
 
-  const Tetrahedron = (props) => {
-    const ref = useRef();
+  const Tetrahedron = (props: {position: [number, number, number]}) => {
+    const ref = useRef<Mesh>();
     useFrame(() => {
       if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
     });
@@ -30,8 +30,8 @@ const Scene = () => {
     );
   };
 
-  const Icosahedron = (props) => {
-    const ref = useRef();
+  const Icosahedron = (props: {position: [number, number, number]}) => {
+    const ref = useRef<Mesh>();
     useFrame(() => {
       if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
     });
@@ -39,34 +39,36 @@ const Scene = () => {
     return (
       <mesh ref={ref} {...props}>
         <icosahedronGeometry />
-        <meshBasicMaterial color="white" attach="material" transparent={true} wireframe={true} />
+        <meshBasicMaterial color="white" attach="material" transparent wireframe />
       </mesh>
     );
   };
 
-  const Core = (props) => {
-    const ref = useRef();
+  const Core = () => {
+    const ref = useRef<Mesh>();
     useFrame(() => {
       if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
     });
 
     return (
-      <mesh ref={ref} {...props}>
+      <mesh ref={ref}>
         <sphereGeometry args={[3, 50, 50]} />
-        <MeshDistortMaterial color="#f1f1f1" attach="material" transparent={true} opacity={0.98} speed={5} distort={0.2} />
+        <MeshDistortMaterial color="#f1f1f1" attach="material" opacity={0.98} speed={5} distort={0.2} />
       </mesh>
     );
   };
 
-  const Rig = ({ children }) => {
+  const Rig = ({ children }: any) => {
     const DEFAULTZOOM = 3;
-    const ref = useRef();
-    const vec = new THREE.Vector3();
+    const ref = useRef<Mesh>();
+    const vec = new Vector3();
     const { camera, mouse } = useThree();
     useFrame(() => {
       camera.position.lerp(vec.set(mouse.x * 2, 0, DEFAULTZOOM), 0.05);
-      ref.current.position.lerp(vec.set(mouse.x * 1, mouse.y * 1, -DEFAULTZOOM), 0.1);
-      ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, (mouse.x * Math.PI) / 20, 0.1);
+      if (ref.current) {
+        ref.current.position.lerp(vec.set(mouse.x * 1, mouse.y * 1, -DEFAULTZOOM), 0.1);
+        ref.current.rotation.y = MathUtils.lerp(ref.current.rotation.y, (mouse.x * Math.PI) / 20, 0.1);
+      }
     });
     return <group ref={ref}>{children}</group>;
   };
@@ -74,20 +76,21 @@ const Scene = () => {
   const Effects = () => {
     const mousePosition = useMousePosition();
     const chromaticAbberationIntensity = 0.000005;
-    const chromaticAbberationOffsetX = (mousePosition.x - (window.innerWidth / 2)) * chromaticAbberationIntensity;
-    const chromaticAbberationOffsetY = (mousePosition.y - (window.innerHeight / 2)) * chromaticAbberationIntensity;
+
+      const chromaticAbberationOffsetX = (mousePosition.x! - (window.innerWidth / 2)) * chromaticAbberationIntensity;
+      const chromaticAbberationOffsetY = (mousePosition.y! - (window.innerHeight / 2)) * chromaticAbberationIntensity;
 
     return (
       <EffectComposer>
         <Bloom luminanceSmoothing={0.9} height={400} />
         <Noise opacity={0.4} />
-        <ChromaticAberration offset={[chromaticAbberationOffsetX, chromaticAbberationOffsetY]} />
+        <ChromaticAberration offset={[chromaticAbberationOffsetX, chromaticAbberationOffsetY] as any} />
       </EffectComposer>
     );
   };
 
   return (
-    <Canvas pixelRatio={window.devicePixelRatio}>
+    <Canvas>
       <color attach="background" args={["#010101"]} />
       <Suspense fallback={null}>
         <Lighting />
