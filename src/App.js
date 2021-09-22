@@ -4,6 +4,7 @@ import { MeshDistortMaterial } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise, ChromaticAberration } from '@react-three/postprocessing';
 import { useRef, Suspense } from 'react';
 import { useMousePosition } from './useMousePosition';
+import { ReactComponent as Wordmark } from './wordmark.svg';
 import './App.css';
 
 const Scene = () => {
@@ -110,14 +111,12 @@ const Scene = () => {
 const App = () => {
   return (
     <div className="app">
-      <header className="app-header">
-        <h1 className="app-title">
-          Delicious Computer
-        </h1>
-      </header>
       <div className="app-scene">
         <Scene />
       </div>
+      <header className="app-header">
+        <Wordmark />
+      </header>
     </div>
   );
 };
