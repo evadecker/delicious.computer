@@ -104,7 +104,7 @@ const Scene = () => {
   };
 
   return (
-    <Canvas>
+    <Canvas dpr={Math.max(window.devicePixelRatio, 2)}>
       <color attach="background" args={["#010101"]} />
       <Suspense fallback={null}>
         <Rig>
