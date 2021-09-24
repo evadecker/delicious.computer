@@ -136,9 +136,6 @@ const App = () => {
       <header className="app-header">
         <Wordmark />
       </header>
-      <main>
-        <p>Delicious Computer is a design and front-end development studio.</p>
-      </main>
     </div>
   );
 };
