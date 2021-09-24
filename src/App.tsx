@@ -73,7 +73,7 @@ const Scene = () => {
     const vec = new Vector3();
     const { camera, mouse } = useThree();
 
-    const DEFAULTZOOM = 3;
+    const DEFAULTZOOM = 3.5;
     const zoom = window.innerWidth > 800 ? DEFAULTZOOM : DEFAULTZOOM + 2;
 
     useFrame(() => {
@@ -97,7 +97,7 @@ const Scene = () => {
     return (
       <EffectComposer>
         <Bloom luminanceSmoothing={0.9} height={400} />
-        <Noise opacity={0.4} />
+        <Noise opacity={0.1} />
         <ChromaticAberration offset={new Vector2(...abberationOffset)} />
       </EffectComposer>
     );

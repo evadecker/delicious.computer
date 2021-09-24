@@ -30,12 +30,15 @@ body,
   height: 100%;
 }
 
+/* Due to the extreme use of chromatic distortion, strange artifacts were appearing
+at the edge of the screen where geometry couldn't be calculated. Rather than attempt to
+fix this I just enlarged the scene to provide enough bleed to hide the artifacts. */
 .app-scene {
   position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+  left: -2em;
+  top: -2em;
+  bottom: -2em;
+  right: -2em;
   z-index: 0;
 }
 
