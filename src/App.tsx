@@ -1,22 +1,13 @@
-import { MathUtils, Mesh, Vector3 } from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { MeshDistortMaterial } from '@react-three/drei';
+import React, { Suspense, useRef, useState } from 'react';
+import { MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { Bloom, ChromaticAberration, EffectComposer, Noise } from '@react-three/postprocessing';
-import { Suspense, useRef } from 'react';
-import { useMousePosition } from './useMousePosition';
+import { Canvas, MeshProps, useFrame, useThree } from '@react-three/fiber';
+import { MeshDistortMaterial } from '@react-three/drei';
 import { ReactComponent as Wordmark } from './wordmark.svg';
 import './App.css';
 
 const Scene = () => {
-  const Lighting = () => (
-    <>
-      <directionalLight color="pink" position={[5, 5, 10]} intensity={20} />
-      <directionalLight color="green" position={[0, -5, 15]} intensity={25} />
-      <directionalLight color="darkBlue" position={[5, 5, 15]} intensity={20} />
-    </>
-  );
-
-  const Tetrahedron = (props: {position: [number, number, number]}) => {
+  const Tetrahedron = (props: MeshProps) => {
     const ref = useRef<Mesh>();
     useFrame(() => {
       if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
@@ -25,12 +16,12 @@ const Scene = () => {
     return (
       <mesh ref={ref} {...props}>
         <tetrahedronGeometry />
-        <meshBasicMaterial color="white" attach="material" transparent={true} wireframe={true} />
+        <meshBasicMaterial transparent wireframe />
       </mesh>
     );
   };
 
-  const Icosahedron = (props: {position: [number, number, number]}) => {
+  const Icosahedron = (props: MeshProps) => {
     const ref = useRef<Mesh>();
     useFrame(() => {
       if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
@@ -39,7 +30,21 @@ const Scene = () => {
     return (
       <mesh ref={ref} {...props}>
         <icosahedronGeometry />
-        <meshBasicMaterial color="white" attach="material" transparent wireframe />
+        <meshBasicMaterial transparent wireframe />
+      </mesh>
+    );
+  };
+
+  const Octahedron = (props: MeshProps) => {
+    const ref = useRef<Mesh>();
+    useFrame(() => {
+      if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
+    });
+
+    return (
+      <mesh ref={ref} {...props}>
+        <octahedronGeometry />
+        <meshBasicMaterial transparent wireframe />
       </mesh>
     );
   };
@@ -53,38 +58,47 @@ const Scene = () => {
     return (
       <mesh ref={ref}>
         <sphereGeometry args={[3, 50, 50]} />
-        <MeshDistortMaterial color="#f1f1f1" attach="material" opacity={0.98} speed={5} distort={0.2} />
+        {
+          // This type has an error that needs fixing https://github.com/pmndrs/drei/issues/553
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          <MeshDistortMaterial color="#dddddd" emissive="#dddddd" eattach="material" transparent opacity={0.9} speed={5} distort={0.2} />
+        }
       </mesh>
     );
   };
 
-  const Rig = ({ children }: any) => {
-    const DEFAULTZOOM = 3;
+  const Rig: React.FC = ({ children }) => {
     const ref = useRef<Mesh>();
     const vec = new Vector3();
     const { camera, mouse } = useThree();
+
+    const DEFAULTZOOM = 3;
+    const zoom = window.innerWidth > 800 ? DEFAULTZOOM : DEFAULTZOOM + 2;
+
     useFrame(() => {
-      camera.position.lerp(vec.set(mouse.x * 2, 0, DEFAULTZOOM), 0.05);
+      camera.position.lerp(vec.set(mouse.x * 2, 0, zoom), 0.05);
       if (ref.current) {
-        ref.current.position.lerp(vec.set(mouse.x * 1, mouse.y * 1, -DEFAULTZOOM), 0.1);
+        ref.current.position.lerp(vec.set(mouse.x * 1, mouse.y * -1, -zoom), 0.1);
         ref.current.rotation.y = MathUtils.lerp(ref.current.rotation.y, (mouse.x * Math.PI) / 20, 0.1);
       }
     });
+
     return <group ref={ref}>{children}</group>;
   };
 
   const Effects = () => {
-    const mousePosition = useMousePosition();
-    const chromaticAbberationIntensity = 0.000005;
+    const { camera } = useThree();
+    const abberationOffsetIntensity = 0.01;
+    const [abberationOffset, setAbberationOffset] = useState([0, 0]);
 
-      const chromaticAbberationOffsetX = (mousePosition.x! - (window.innerWidth / 2)) * chromaticAbberationIntensity;
-      const chromaticAbberationOffsetY = (mousePosition.y! - (window.innerHeight / 2)) * chromaticAbberationIntensity;
+    useFrame(() => setAbberationOffset([camera.position.x * abberationOffsetIntensity, camera.position.y * abberationOffsetIntensity]));
 
     return (
       <EffectComposer>
         <Bloom luminanceSmoothing={0.9} height={400} />
         <Noise opacity={0.4} />
-        <ChromaticAberration offset={[chromaticAbberationOffsetX, chromaticAbberationOffsetY] as any} />
+        <ChromaticAberration offset={new Vector2(...abberationOffset)} />
       </EffectComposer>
     );
   };
@@ -93,16 +107,18 @@ const Scene = () => {
     <Canvas>
       <color attach="background" args={["#010101"]} />
       <Suspense fallback={null}>
-        <Lighting />
         <Rig>
-          <Tetrahedron position={[-6, -2, -4]} />
           <Tetrahedron position={[8, -4, -2]} />
-          <Tetrahedron position={[8, 8, -4]} />
-          <Tetrahedron position={[10, -8, -8]} />
+          <Tetrahedron position={[4, -7, -6]} />
+          <Tetrahedron position={[5, 6, -4]} />
+          <Tetrahedron position={[-8, 9, -5]} />
+          <Tetrahedron position={[-2, 6, -7]} />
+          <Octahedron position={[4, -6, 2]} />
+          <Octahedron position={[-10, -6, -6]} />
+          <Icosahedron position={[1, 7, 0]} />
           <Icosahedron position={[4, 0.5, 3]} />
-          <Icosahedron position={[-1, -3, 3]} />
+          <Icosahedron position={[-1, -4, 2.5]} />
           <Icosahedron position={[-2, 1, 5]} />
-          <Tetrahedron position={[-8, 6, -5]} />
           <Core />
         </Rig>
         <Effects />
@@ -120,6 +136,9 @@ const App = () => {
       <header className="app-header">
         <Wordmark />
       </header>
+      <main>
+        <p>Delicious Computer is a design and front-end development studio.</p>
+      </main>
     </div>
   );
 };

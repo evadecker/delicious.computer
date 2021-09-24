@@ -2,15 +2,23 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "sort-imports-es6-autofix"
   ],
   "extends": [
+    "react-app",
+    "react-app/jest",
     "eslint:recommended",
+    "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "env": {
     "browser": true,
     "node": true
+  },
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-use-before-define": "off"
   }
 }
