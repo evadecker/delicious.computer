@@ -62,7 +62,7 @@ const Scene = () => {
           // This type has an error that needs fixing https://github.com/pmndrs/drei/issues/553
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          <MeshDistortMaterial color="#dddddd" attach="material" transparent opacity={0.9} speed={5} distort={0.2} />
+          <MeshDistortMaterial color="#dddddd" emissive="#dddddd" eattach="material" transparent opacity={0.9} speed={5} distort={0.2} />
         }
       </mesh>
     );
