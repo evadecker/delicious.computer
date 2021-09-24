@@ -58,7 +58,7 @@ const Scene = () => {
     return (
       <mesh ref={ref}>
         <sphereGeometry args={[3, 50, 50]} />
-        <MeshDistortMaterial color="#dddddd" emissive="#dddddd" attach="material" transparent opacity={0.9} speed={5} distort={0.2} />
+        <MeshDistortMaterial color="#dddddd" attach="material" transparent opacity={0.9} speed={5} distort={0.2} />
       </mesh>
     );
   };
