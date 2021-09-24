@@ -25,7 +25,17 @@ body,
   box-sizing: inherit;
 }
 
-.app-header {
+::selection {
+  background: cyan;
+  color: red;
+}
+
+::-moz-selection {
+  background: cyan;
+  color: red;
+}
+
+.header {
   width: 100%;
   height: 100%;
 }
@@ -33,7 +43,7 @@ body,
 /* Due to the extreme use of chromatic distortion, strange artifacts were appearing
 at the edge of the screen where geometry couldn't be calculated. Rather than attempt to
 fix this I just enlarged the scene to provide enough bleed to hide the artifacts. */
-.app-scene {
+.scene {
   position: fixed;
   left: -2em;
   top: -2em;
@@ -42,21 +52,102 @@ fix this I just enlarged the scene to provide enough bleed to hide the artifacts
   z-index: 0;
 }
 
-.app-header {
+.main {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   mix-blend-mode: difference;
-  z-index: 1;
   pointer-events: none;
   user-select: none;
 }
 
-.app-header svg {
+.header svg {
   display: block;
   color: white;
   width: 90%;
   max-width: 1000px;
   transform: skew(0, -15deg);
+}
+
+.button {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  z-index: 5;
+}
+
+.about {
+  background: white;
+  color: black;
+  opacity: 0.9;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10vw;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  left: 1em;
+  bottom: 1em;
+}
+
+.about p {
+  font-size: 32px;
+  max-width: 800px;
+  font-family: monotalic-wide, "Courier New", Courier, monospace;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    padding: 8vw;
+  }
+
+  .about p {
+    font-size: 24px;
+  }
+}
+
+.about p:last-child {
+  margin-bottom: 0;
+}
+
+.about-toggle {
+  font-family: monotalic-wide, "Courier New", Courier, monospace;
+  font-weight: 400;
+  font-style: normal;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 2;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 40px;
+  margin-top: -8px;
+  color: white;
+  mix-blend-mode: difference;
+}
+
+.click-to-copy {
+  color: #cccccc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.about strong {
+  font-family: monotalic-wide, "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-style: normal;
 }
