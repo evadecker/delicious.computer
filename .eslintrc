@@ -3,9 +3,11 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "sort-imports-es6-autofix",
+    "sort-imports-es6-autofix"
   ],
   "extends": [
+    "react-app",
+    "react-app/jest",
     "eslint:recommended",
     "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -17,10 +19,6 @@
   },
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "sort-imports-es6-autofix/sort-imports-es6": [2, {
-      "ignoreCase": false,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-    }]
+    "no-use-before-define": "off"
   }
 }

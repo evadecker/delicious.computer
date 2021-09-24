@@ -1,10 +1,10 @@
-import './App.css';
+import React, { Suspense, useRef, useState } from 'react';
+import { MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { Bloom, ChromaticAberration, EffectComposer, Noise } from '@react-three/postprocessing';
 import { Canvas, MeshProps, useFrame, useThree } from '@react-three/fiber';
-import { MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { MeshDistortMaterial } from '@react-three/drei';
 import { ReactComponent as Wordmark } from './wordmark.svg';
-import React, { Suspense, useRef, useState } from 'react';
+import './App.css';
 
 const Scene = () => {
   const Tetrahedron = (props: MeshProps) => {
