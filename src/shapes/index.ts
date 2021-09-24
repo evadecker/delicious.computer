@@ -1,2 +1,2 @@
-export { BlobShape } from './BlobShape';
-export { WireframeShape } from './WireframeShape'
+export { BlobShape } from "./BlobShape";
+export { WireframeShape } from "./WireframeShape";

@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
-import { Mesh } from 'three';
-import { MeshProps, useFrame } from '@react-three/fiber';
+import React, { useRef } from "react";
+import { Mesh } from "three";
+import { MeshProps, useFrame } from "@react-three/fiber";
 
-type ShapeType = 'tetrahedron' | 'icossahedron' | 'octahedron';
+type ShapeType = "tetrahedron" | "icossahedron" | "octahedron";
 
 interface IProps extends MeshProps {
   type: ShapeType;
@@ -17,15 +17,15 @@ export const WireframeShape: React.FC<IProps> = (props: IProps) => {
   });
 
   const renderGeometry = (type: ShapeType) => {
-    switch(type) {
-      case 'icossahedron':
+    switch (type) {
+      case "icossahedron":
         return <icosahedronGeometry />;
-      case 'octahedron':
+      case "octahedron":
         return <octahedronGeometry />;
-      case 'tetrahedron':
+      case "tetrahedron":
         return <tetrahedronGeometry />;
     }
-  }
+  };
 
   return (
     <mesh ref={ref} {...props}>

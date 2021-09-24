@@ -25,6 +25,16 @@ body,
   box-sizing: inherit;
 }
 
+::selection {
+  background: cyan;
+  color: red;
+}
+
+::-moz-selection {
+  background: cyan;
+  color: red;
+}
+
 .header {
   width: 100%;
   height: 100%;
@@ -42,13 +52,18 @@ fix this I just enlarged the scene to provide enough bleed to hide the artifacts
   z-index: 0;
 }
 
+.main {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   mix-blend-mode: difference;
-  z-index: 1;
   pointer-events: none;
   user-select: none;
 }
@@ -65,4 +80,74 @@ fix this I just enlarged the scene to provide enough bleed to hide the artifacts
   position: absolute;
   top: 1em;
   right: 1em;
+  z-index: 5;
+}
+
+.about {
+  background: white;
+  color: black;
+  opacity: 0.9;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10vw;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  left: 1em;
+  bottom: 1em;
+}
+
+.about p {
+  font-size: 32px;
+  max-width: 800px;
+  font-family: monotalic-wide, "Courier New", Courier, monospace;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    padding: 8vw;
+  }
+
+  .about p {
+    font-size: 24px;
+  }
+}
+
+.about p:last-child {
+  margin-bottom: 0;
+}
+
+.about-toggle {
+  font-family: monotalic-wide, "Courier New", Courier, monospace;
+  font-weight: 400;
+  font-style: normal;
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 2;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 40px;
+  margin-top: -8px;
+  color: white;
+  mix-blend-mode: difference;
+}
+
+.click-to-copy {
+  color: #cccccc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.about strong {
+  font-family: monotalic-wide, "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-style: normal;
 }
