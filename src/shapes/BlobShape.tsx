@@ -17,10 +17,10 @@ export const BlobShape: React.FC = () => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         <MeshDistortMaterial
-          color="#dddddd"
+          color="#f1f1f1"
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          emissive="#dddddd"
+          emissive="#f1f1f1"
           eattach="material"
           transparent
           opacity={0.9}
