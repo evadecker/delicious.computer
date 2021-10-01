@@ -14,8 +14,8 @@ const App = () => {
   const About = () => (
     <div className="about">
       <p>
-        A design and front-end web dev studio based&nbsp;in&nbsp;
-        Brooklyn,&nbsp;NY&nbsp;·&nbsp;
+        A design and front-end web dev studio
+        based&nbsp;in&nbsp;Brooklyn,&nbsp;NY&nbsp;·&nbsp;
         <a href="mailto:hello@avery.computer">Email</a>
       </p>
     </div>
