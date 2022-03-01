@@ -16,7 +16,7 @@ const App = () => {
       <p>
         A&nbsp;design&nbsp;and&nbsp;front-end&nbsp;web dev studio
         based&nbsp;in&nbsp;Brooklyn,&nbsp;NY&nbsp;·&nbsp;
-        <a href="mailto:hello@avery.computer">Email</a>
+        <a href="mailto:itsevadecker@gmail.com">Email</a>
       </p>
     </div>
   );
