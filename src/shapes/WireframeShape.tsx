@@ -11,7 +11,7 @@ interface IProps extends MeshProps {
 export const WireframeShape: React.FC<IProps> = (props: IProps) => {
   const { type } = props;
 
-  const ref = useRef<Mesh>();
+  const ref = useRef<Mesh>(null);
   useFrame(() => {
     if (ref.current) ref.current.rotation.x = ref.current.rotation.y += 0.001;
   });
