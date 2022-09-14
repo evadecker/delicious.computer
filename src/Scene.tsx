@@ -1,5 +1,5 @@
-import React, { Suspense, useRef, useState } from "react";
-import { MathUtils, Mesh, Vector2, Vector3 } from "three";
+import React, { PropsWithChildren, Suspense, useRef, useState } from "react";
+import { MathUtils, Group, Vector2, Vector3 } from "three";
 import {
   ChromaticAberration,
   EffectComposer,
@@ -10,9 +10,9 @@ import { BlobShape, WireframeShape } from "./shapes";
 import "./App.css";
 
 export const Scene: React.FC = () => {
-  const Rig: React.FC = ({ children }) => {
+  const Rig: React.FC<PropsWithChildren> = ({ children }) => {
     const defaultZoom = 3.5;
-    const ref = useRef<Mesh>();
+    const ref = useRef<Group>(null);
     const vec = new Vector3();
     const { camera, mouse } = useThree();
 
