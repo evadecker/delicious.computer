@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Mesh } from "three";
-import { MeshProps, useFrame } from "@react-three/fiber";
+import { type MeshProps, useFrame } from "@react-three/fiber";
 
 type ShapeType = "tetrahedron" | "icossahedron" | "octahedron";
 
