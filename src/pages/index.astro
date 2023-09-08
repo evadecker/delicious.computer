@@ -1,0 +1,195 @@
+---
+import { Scene } from "../components/Scene";
+import Wordmark from "../components/Wordmark.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Delicious Computer is a design and front-end web development studio based in Brooklyn, New York."
+    />
+    <meta property="og:title" content="DELICIOUS COMPUTER" />
+    <meta
+      property="og:description"
+      content="Delicious Computer is a design and front-end web development studio based in Brooklyn, New York."
+    />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:image" content="/preview.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>DELICIOUS COMPUTER</title>
+    <link rel="stylesheet" href="https://use.typekit.net/dfd8aji.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="scene">
+        <Scene client:only />
+      </div>
+      <main class="main">
+        <header class="header">
+          <h1 class="logo" aria-label="Delicious Computer">
+            <Wordmark />
+          </h1>
+        </header>
+        <div class="about">
+          <p>
+            A&nbsp;design&nbsp;and&nbsp;front-end&nbsp;web dev studio
+            based&nbsp;in&nbsp;Brooklyn,&nbsp;NY&nbsp;·&nbsp;
+            <a href="mailto:itsevadecker@gmail.com">Email</a>
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  html,
+  body {
+    background: black;
+    color: white;
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: cyan;
+    color: red;
+  }
+
+  ::-moz-selection {
+    background: cyan;
+    color: red;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+
+  /* Due to the extreme use of chromatic aberration, artifacts were appearing at the
+	edge of the screen where geometry couldn't be calculated. Rather than attempt to
+	fix this I just enlarged the scene to provide enough bleed to hide the artifacts. */
+  .scene {
+    position: fixed;
+    left: -2em;
+    top: -2em;
+    bottom: -2em;
+    right: -2em;
+    z-index: 0;
+  }
+
+  .main {
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: stretch;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+    mix-blend-mode: difference;
+  }
+
+  .header {
+    width: 100vw;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo svg {
+    display: block;
+    width: 90%;
+    max-width: 1000px;
+    transform: skew(0, -15deg);
+  }
+
+  .about {
+    padding: 1em;
+    font-family: monotalic-wide, "Courier New", Courier, monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+  }
+
+  .about a {
+    color: white;
+    pointer-events: all;
+  }
+
+  .about p {
+    margin: 0;
+  }
+
+  .about strong {
+    font-family: monotalic-wide, "Courier New", Courier, monospace;
+    font-weight: 700;
+    font-style: normal;
+  }
+</style>
